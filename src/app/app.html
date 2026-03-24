@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="header">
+    <h1>{{ titulo }}</h1>
+    <p class="subtitle">Listado de publicaciones obtenidas desde una API pública</p>
+  </div>
+
+  <p class="loading" *ngIf="cargando">Cargando datos...</p>
+  <p class="error" *ngIf="error">{{ error }}</p>
+
+  <div class="table-card" *ngIf="!cargando && !error && postsPaginados.length > 0">
+    <table class="tabla">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Título</th>
+          <th>Descripción</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let post of postsPaginados">
+          <td>{{ post.id }}</td>
+          <td>{{ post.title }}</td>
+          <td>{{ post.body }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="paginacion" *ngIf="!cargando && !error && posts.length > 0">
+    <button (click)="paginaAnterior()" [disabled]="paginaActual === 1">Anterior</button>
+    <span>Página {{ paginaActual }} de {{ totalPaginas }}</span>
+    <button (click)="siguientePagina()" [disabled]="paginaActual === totalPaginas">Siguiente</button>
+  </div>
+</div>
